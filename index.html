@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admission Certificate Status - Project Demo</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fffafa;
+    color: #171717;
+}
+
+/* PROJECT LABEL */
+.project-label {
+    background: #8b2424;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    font-size: 11px;
+    letter-spacing: .3px;
+}
+
+/* HEADER */
+
+.header {
+    height: 112px;
+    background: #ffffff;
+    border-bottom: 1px solid #dedede;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 38px;
+}
+
+.logo {
+    width: 78px;
+    height: 78px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.header-text {
+    line-height: 1.15;
+}
+
+.gov {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 2px;
+}
+
+.ssc-name {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.profile {
+    margin-left: auto;
+
+    width: 52px;
+    height: 52px;
+
+    border-radius: 50%;
+    border: 2px solid #8c2d2d;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #8c2d2d;
+    font-size: 25px;
+}
+
+/* MAIN */
+
+.main {
+    max-width: 1000px;
+    margin: auto;
+    padding: 28px 38px 50px;
+}
+
+/* BREADCRUMB */
+
+.breadcrumb {
+    font-size: 17px;
+    margin-bottom: 48px;
+}
+
+.breadcrumb .arrow {
+    margin: 0 13px;
+    font-size: 22px;
+}
+
+/* CARD */
+
+.card {
+    background: white;
+    border: 1px solid #d5d5d5;
+    border-radius: 17px;
+    overflow: hidden;
+    margin-bottom: 45px;
+}
+
+/* CARD TITLE */
+
+.card-title {
+    background: #f1dcdc;
+    padding: 20px 22px;
+
+    font-size: 29px;
+    line-height: 1.08;
+    font-weight: 500;
+}
+
+/* FORM */
+
+.form {
+    padding: 26px 22px 38px;
+}
+
+label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+select {
+    width: 100%;
+    height: 62px;
+
+    border: 1px solid #dddddd;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    padding: 0 18px;
+
+    font-size: 18px;
+    color: #333;
+
+    margin-bottom: 16px;
+}
+
+/* CHECK BUTTON */
+
+.check-button {
+    margin-top: 20px;
+
+    height: 56px;
+    min-width: 275px;
+
+    padding: 0 45px;
+
+    border-radius: 30px;
+
+    border: 2px solid #8d4444;
+
+    background: white;
+
+    color: #8d4444;
+
+    font-size: 19px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.check-button:hover {
+    background: #8d4444;
+    color: white;
+}
+
+/* RESULT */
+
+#resultPage {
+    display: none;
+}
+
+.result-title {
+    background: #f1dcdc;
+
+    padding: 20px 22px;
+
+    font-size: 28px;
+    line-height: 1.08;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.result-table td {
+    border: 1px solid #d8d8d8;
+    padding: 18px 15px;
+    font-size: 18px;
+}
+
+.result-table td:first-child {
+    width: 38%;
+}
+
+.rejected {
+    color: #ed0000;
+    font-weight: bold;
+}
+
+.reason {
+    color: #ed0000;
+    font-weight: bold;
+    line-height: 1.35;
+}
+
+.back {
+    margin-top: 20px;
+
+    padding: 12px 30px;
+
+    border: 2px solid #8d4444;
+    border-radius: 28px;
+
+    background: white;
+    color: #8d4444;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* FOOTER */
+
+.footer {
+    background: #2d2d2d;
+    color: white;
+
+    padding: 35px 48px 28px;
+
+    min-height: 500px;
+}
+
+.footer-inner {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.footer-logo-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.footer-logo {
+    width: 82px;
+    height: 82px;
+    object-fit: contain;
+    margin-right: 16px;
+}
+
+.footer-name {
+    font-size: 25px;
+    line-height: 1.15;
+}
+
+.footer-description {
+    font-size: 17px;
+    line-height: 1.45;
+
+    max-width: 700px;
+
+    margin-bottom: 25px;
+}
+
+.footer-heading {
+    font-size: 20px;
+    margin-bottom: 12px;
+
+    text-decoration: underline;
+    text-underline-offset: 8px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+.contact {
+    font-size: 17px;
+    margin-top: 12px;
+}
+
+.footer-line {
+    margin-top: 28px;
+    border-top: 1px solid #aaa;
+}
+
+.copyright {
+    text-align: center;
+    color: #ddd;
+
+    font-size: 16px;
+    line-height: 2;
+
+    padding-top: 18px;
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+
+    .project-label {
+        font-size: 9px;
+    }
+
+    .header {
+        height: 112px;
+        padding: 0 18px;
+    }
+
+    .logo {
+        width: 63px;
+        height: 63px;
+        margin-right: 10px;
+    }
+
+    .gov {
+        font-size: 14px;
+    }
+
+    .ssc-name {
+        font-size: 20px;
+    }
+
+    .profile {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .main {
+        padding: 25px 15px 40px;
+    }
+
+    .breadcrumb {
+        font-size: 16px;
+        margin-bottom: 35px;
+    }
+
+    .card-title,
+    .result-title {
+        font-size: 25px;
+    }
+
+    .form {
+        padding: 24px 15px 30px;
+    }
+
+    label {
+        font-size: 17px;
+    }
+
+    select {
+        height: 58px;
+        font-size: 16px;
+    }
+
+    .check-button {
+        width: 275px;
+        max-width: 100%;
+    }
+
+    .result-table td {
+        font-size: 15px;
+        padding: 15px 9px;
+    }
+
+    .footer {
+        padding: 32px 25px 25px;
+    }
+
+    .footer-logo {
+        width: 65px;
+        height: 65px;
+    }
+
+    .footer-name {
+        font-size: 21px;
+    }
+
+    .footer-description {
+        font-size: 15px;
+    }
+
+    .footer-links,
+    .contact {
+        font-size: 16px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- CLEARLY MARKED PROJECT -->
+<div class="project-label">
+    PROJECT DEMONSTRATION — NOT AN OFFICIAL SSC WEBSITE
+</div>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <img src="logo.jpg" class="logo">
+
+    <div class="header-text">
+
+        <div class="gov">
+            Government of India
+        </div>
+
+        <div class="ssc-name">
+            Staff Selection Commission
+        </div>
+
+    </div>
+
+    <div class="profile">
+        ●
+    </div>
+
+</header>
+
+
+<main class="main">
+
+    <!-- BREADCRUMB -->
+
+    <div class="breadcrumb">
+        Dashboard
+        <span class="arrow">›</span>
+        Admission Certificate Status
+    </div>
+
+
+    <!-- =========================
+         FIRST SCREEN
+    ========================== -->
+
+    <section id="checkPage">
+
+        <div class="card">
+
+            <div class="card-title">
+                Check Status of<br>
+                Admission Certificate
+            </div>
+
+
+            <div class="form">
+
+                <label>
+                    Examination
+                </label>
+
+                <select>
+                    <option>
+                        Combined Graduate Level Examination, 2026
+                    </option>
+                </select>
+
+
+                <label>
+                    Examination Year
+                </label>
+
+                <select>
+                    <option>
+                        2026
+                    </option>
+                </select>
+
+
+                <button
+                    class="check-button"
+                    onclick="showResult()">
+
+                    Check Status
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         RESULT SCREEN
+    ========================== -->
+
+    <section id="resultPage">
+
+        <div class="card">
+
+            <div class="result-title">
+                Status of Admission Certificate for<br>
+                Combined Graduate Level<br>
+                Examination, 2026
+            </div>
+
+
+            <table class="result-table">
+
+                <tr>
+                    <td>Name</td>
+                    <td>
+                        CHIPPADA RAVI PRASAD
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Father's Name</td>
+                    <td>
+                        CHIPPADA PRABHUDAS
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Registration<br>Number</td>
+                    <td>
+                        10015188475
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Status</td>
+                    <td class="rejected">
+                        Rejected
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Rejection Reason</td>
+                    <td class="reason">
+                        Face Not Properly Centered /
+                        Partial Face Visible
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <button
+            class="back"
+            onclick="showCheckPage()">
+
+            ← Back
+
+        </button>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer class="footer">
+
+    <div class="footer-inner">
+
+        <div class="footer-logo-row">
+
+            <img src="logo.jpg" class="footer-logo">
+
+            <div class="footer-name">
+                Staff Selection<br>
+                Commission
+            </div>
+
+        </div>
+
+
+        <div class="footer-description">
+            Public Disclosure of Scores and Other Details of
+            Non-Recommended Willing Candidates
+        </div>
+
+
+        <div class="footer-heading">
+            Useful links
+        </div>
+
+
+        <ul class="footer-links">
+
+            <li>Archives</li>
+            <li>Disclaimer</li>
+            <li>Sitemap</li>
+            <li>Help</li>
+            <li>Website Policies</li>
+            <li>Web Information Manager</li>
+
+        </ul>
+
+
+        <div class="footer-heading">
+            Contact Us
+        </div>
+
+
+        <div class="contact">
+            📍 Block No-12, CGO Complex, Lodhi Road
+            New Delhi
+        </div>
+
+
+        <div class="footer-line"></div>
+
+
+        <div class="copyright">
+
+            © 2024 SSC. All Rights Reserved<br>
+
+            Total Visitor Count: 500494971<br>
+
+            Last updated on Sep 21, 2026
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+function showResult() {
+
+    document.getElementById("checkPage").style.display = "none";
+
+    document.getElementById("resultPage").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function showCheckPage() {
+
+    document.getElementById("resultPage").style.display = "none";
+
+    document.getElementById("checkPage").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+</script>
+
+</body>
+</html>
